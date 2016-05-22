@@ -1,0 +1,23 @@
+sed -i 's/\"//g' country_names.tsv
+sed -i 's/\"//g' products_hs_07.tsv
+sed -i 's/NULL/0/g' year_origin_destination_hs07_4.tsv
+sed -i 's/NULL/0/g' year_origin_destination_hs02_4.tsv
+sed -i 's/NULL/0/g' year_origin_destination_hs96_4.tsv
+sed -i 's/NULL/0/g' year_origin_destination_hs92_4.tsv
+
+CREATE TABLE countries (long_code char(5) NOT NULL UNIQUE, short_code char(3) NOT NULL UNIQUE, name text NOT NULL);
+\COPY countries FROM /home/andrew/Downloads/country_names.tsv
+
+CREATE TABLE products (long_code int NOT NULL UNIQUE, short_code int NOT NULL UNIQUE, name text NOT NULL);
+\COPY products FROM /home/andrew/Downloads/products_hs_07.tsv
+
+CREATE TABLE trades (year int, origin char(3), destination char(3), product int, export_val double precision, import_val double precision);
+CREATE INDEX trades_origin_idx on trades(origin);
+CREATE INDEX trades_destination_idx on trades(destination);
+CREATE INDEX trades_product_idx on trades(product);
+ANALYZE trades;
+\COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs07_4.tsv;
+\COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs02_4.tsv;
+\COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs96_4.tsv;
+\COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs92_4.tsv;
+
