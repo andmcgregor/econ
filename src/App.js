@@ -8,8 +8,13 @@ import Sidebar from "./Sidebar";
 var App = React.createClass({
   getInitialState() {
     return {
-      selectedCountry: undefined
+      selectedCountry: undefined,
+      selectedProduct: undefined
     }
+  },
+
+  onLoaded() {
+    ReactDOM.unmountComponentAtNode(document.getElementById("loading"));
   },
 
   onSelectCountry(country) {
@@ -17,14 +22,20 @@ var App = React.createClass({
   },
 
   onSelectProduct(product) {
+    this.setState({ selectedProduct: product });
+  },
+
+  componentDidMount() {
+    ReactDOM.render(<Loading />, document.getElementById("loading"));
   },
 
   render() {
     return <div>
-             <Loading />
+             <div id="loading"></div>
 
              <div className="app">
-               <Sidebar selectedCountry={this.state.selectedCountry}
+               <Sidebar onLoaded={this.onLoaded}
+                        selectedCountry={this.state.selectedCountry}
                         onSelectCountry={this.onSelectCountry}
                         selectedProduct={this.state.selectedProduct}
                         onSelectProduct={this.onSelectProduct} />

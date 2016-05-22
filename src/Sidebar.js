@@ -28,12 +28,8 @@ var Sidebar = React.createClass({
                                        onSelectProduct={this.props.onSelectProduct} />,
                       document.getElementById("productSelector"));
 
-      this.onLoaded();
+      this.props.onLoaded();
     }.bind(this));
-  },
-
-  onLoaded() {
-    ReactDOM.unmountComponentAtNode(document.getElementById("loading"));
   },
 
   componentWillMount() {
