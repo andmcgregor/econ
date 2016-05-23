@@ -3,8 +3,6 @@ import THREE from "three";
 
 var Globe = React.createClass({
   init() {
-    console.log("Globe init");
-
     this.width = document.getElementById("globe").offsetWidth,
     this.height = document.getElementById("globe").offsetHeight;
 
@@ -26,8 +24,6 @@ var Globe = React.createClass({
   },
 
   animate() {
-    console.log("Globe animate");
-
     requestAnimationFrame(this.animate);
 
     this.mesh.rotation.x += 0.01;

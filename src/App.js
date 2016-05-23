@@ -13,20 +13,36 @@ var App = React.createClass({
     }
   },
 
+  componentDidMount() {
+    ReactDOM.render(<Loading />, document.getElementById("loading"));
+  },
+
   onLoaded() {
     ReactDOM.unmountComponentAtNode(document.getElementById("loading"));
   },
 
   onSelectCountry(country) {
     this.setState({ selectedCountry: country });
+    this.fetchTradeData();
   },
 
   onSelectProduct(product) {
     this.setState({ selectedProduct: product });
+    this.fetchTradeData();
   },
 
-  componentDidMount() {
-    ReactDOM.render(<Loading />, document.getElementById("loading"));
+  fetchTradeData() {
+    console.log('fetch trade data');
+    if (this.state.selectedCountry != undefined &&
+        this.state.selectedProduct != undefined) {
+      console.log('doing request');
+      fetch("http://localhost:8000/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        console.log(JSON.stringify(json));
+        this.state.tradeData = json;
+      }.bind(this));
+    }
   },
 
   render() {
@@ -38,7 +54,8 @@ var App = React.createClass({
                         selectedCountry={this.state.selectedCountry}
                         onSelectCountry={this.onSelectCountry}
                         selectedProduct={this.state.selectedProduct}
-                        onSelectProduct={this.onSelectProduct} />
+                        onSelectProduct={this.onSelectProduct}
+                        tradeData={this.state.tradeData} />
                <Globe selectedCountry={this.state.selectedCountry} />
              </div>
            </div>

@@ -1,9 +1,5 @@
 import React from "react";
 
-const ProductOption = (props) => {
-  return <option value={props.product.short_code}>{props.product.name}</option>
-};
-
 var ProductSelector = React.createClass({
   update(e) {
     this.props.onSelectProduct(e.target.value);
@@ -11,7 +7,7 @@ var ProductSelector = React.createClass({
 
   render() {
     let products = this.props.products.map( product => {
-      return <ProductOption key={product.name} product={product} />
+      return <option key={product.name} value={product.short_code}>{product.name}</option>
     });
 
     return <select onChange={this.update}>{products}</select>
