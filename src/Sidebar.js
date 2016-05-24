@@ -40,10 +40,18 @@ var Sidebar = React.createClass({
     return <div className="sidebar">
              <div id="countrySelector"></div>
              <div id="productSelector"></div>
-             <TrendGraph selectedCountry={this.props.selectedCountry}
-                         selectedProduct={this.props.selectedProduct} />
-             <ImportExportGraph selectedCountry={this.props.selectedCountry}
-                                selectedProduct={this.props.selectedProduct} />
+
+             <h3>Import Value ($)</h3>
+             <TrendGraph valueType="import_val"
+                         selectedCountry={this.props.selectedCountry}
+                         tradeData={this.props.tradeData} />
+
+             <h3>Export Value ($)</h3>
+             <TrendGraph valueType="export_val"
+                         selectedCountry={this.props.selectedCountry}
+                         tradeData={this.props.tradeData} />
+
+             <ImportExportGraph tradeData={this.props.tradeData} />
            </div>
   }
 });

@@ -9,7 +9,8 @@ var App = React.createClass({
   getInitialState() {
     return {
       selectedCountry: undefined,
-      selectedProduct: undefined
+      selectedProduct: undefined,
+      tradeData: []
     }
   },
 
@@ -32,15 +33,14 @@ var App = React.createClass({
   },
 
   fetchTradeData() {
-    console.log('fetch trade data');
     if (this.state.selectedCountry != undefined &&
         this.state.selectedProduct != undefined) {
       console.log('doing request');
       fetch("http://localhost:8000/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
         return response.json();
       }).then(function(json) {
-        console.log(JSON.stringify(json));
-        this.state.tradeData = json;
+        console.log('SETTING TRADE DATA');
+        this.setState({ tradeData: json });
       }.bind(this));
     }
   },
