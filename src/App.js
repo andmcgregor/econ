@@ -8,14 +8,53 @@ import Sidebar from "./Sidebar";
 var App = React.createClass({
   getInitialState() {
     return {
+      countries: [],
       selectedCountry: undefined,
+      products: [],
       selectedProduct: undefined,
       tradeData: []
     }
   },
 
+  fetchInitialData() {
+    fetch("http://localhost:8000/api/countries").then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      this.setState({ countries: json });
+      if (this.state.countries.length > 0 && this.state.products.length > 0)
+        this.onLoaded();
+
+      ReactDOM.render(<Globe countries={this.state.countries}
+                             selectedCountry={this.state.selectedCountry} />,
+                      document.getElementById("globe"));
+
+
+    }.bind(this));
+
+    fetch("http://localhost:8000/api/products").then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      this.setState({ products: json });
+      if (this.state.countries.length > 0 && this.state.products.length > 0)
+        this.onLoaded();
+    }.bind(this));
+  },
+
+  fetchTradeData() {
+    if (this.state.selectedCountry != undefined &&
+        this.state.selectedProduct != undefined) {
+      console.log('doing request');
+      fetch("http://localhost:8000/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        this.setState({ tradeData: json });
+      }.bind(this));
+    }
+  },
+
   componentDidMount() {
     ReactDOM.render(<Loading />, document.getElementById("loading"));
+    this.fetchInitialData();
   },
 
   onLoaded() {
@@ -32,31 +71,20 @@ var App = React.createClass({
     this.fetchTradeData();
   },
 
-  fetchTradeData() {
-    if (this.state.selectedCountry != undefined &&
-        this.state.selectedProduct != undefined) {
-      console.log('doing request');
-      fetch("http://localhost:8000/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
-        return response.json();
-      }).then(function(json) {
-        console.log('SETTING TRADE DATA');
-        this.setState({ tradeData: json });
-      }.bind(this));
-    }
-  },
-
   render() {
     return <div>
              <div id="loading"></div>
 
              <div className="app">
-               <Sidebar onLoaded={this.onLoaded}
+               <div id="globe"></div>
+
+               <Sidebar countries={this.state.countries}
                         selectedCountry={this.state.selectedCountry}
                         onSelectCountry={this.onSelectCountry}
+                        products={this.state.products}
                         selectedProduct={this.state.selectedProduct}
                         onSelectProduct={this.onSelectProduct}
                         tradeData={this.state.tradeData} />
-               <Globe selectedCountry={this.state.selectedCountry} />
              </div>
            </div>
   }
