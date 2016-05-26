@@ -17,7 +17,7 @@ var App = React.createClass({
   },
 
   fetchInitialData() {
-    fetch("http://localhost:8000/api/countries").then(function(response) {
+    fetch("/econ/api/countries").then(function(response) {
       return response.json();
     }).then(function(json) {
       this.setState({ countries: json });
@@ -31,7 +31,7 @@ var App = React.createClass({
 
     }.bind(this));
 
-    fetch("http://localhost:8000/api/products").then(function(response) {
+    fetch("/econ/api/products").then(function(response) {
       return response.json();
     }).then(function(json) {
       this.setState({ products: json });
@@ -44,7 +44,7 @@ var App = React.createClass({
     if (this.state.selectedCountry != undefined &&
         this.state.selectedProduct != undefined) {
       console.log('doing request');
-      fetch("http://localhost:8000/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
+      fetch("/econ/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
         return response.json();
       }).then(function(json) {
         this.setState({ tradeData: json });
