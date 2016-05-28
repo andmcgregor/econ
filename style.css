@@ -53,6 +53,10 @@ h3 {
   text-align: center;
 }
 
+.action {
+  text-decoration: underline;
+}
+
 /* sidebar */
 
 .sidebar {

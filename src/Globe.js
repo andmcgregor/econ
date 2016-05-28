@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import THREE from "three";
 
 import Instructions from "./Instructions";
@@ -38,7 +39,6 @@ function Vertices(data) {
 Vertices.prototype = Object.create(THREE.Geometry.prototype);
 
 var Globe = React.createClass({
-
   init() {
     this.width = document.getElementById("globe").offsetWidth,
     this.height = document.getElementById("globe").offsetHeight;
@@ -49,6 +49,9 @@ var Globe = React.createClass({
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(this.width, this.height);
     this.renderer.setClearColor(0x0e141a, 1);
+
+    this.raycaster = new THREE.Raycaster();
+    this.mouseVector = new THREE.Vector2();
 
     this.scene = new THREE.Scene();
     this.scene.rotation.x = Math.PI / 180.0 * 270.0;
@@ -77,6 +80,7 @@ var Globe = React.createClass({
     var mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
 
+    this.countries = [];
     this.initCountries();
 
     document.getElementById("scene").appendChild(this.renderer.domElement);
@@ -97,8 +101,19 @@ var Globe = React.createClass({
         shading: THREE.FlatShading
       });
 
-      this.scene.add(new THREE.Mesh(geometry, material));
+      var countryObj = new THREE.Object3D();
+
+      countryObj.add(new THREE.Mesh(geometry, material));
+      countryObj.name = this.props.countries[i].name;
+      countryObj.code = this.props.countries[i].short_code;
+
+      this.countries.push(countryObj);
+      this.scene.add(countryObj);
     }
+  },
+
+  onInstructionsClosed() {
+    window.addEventListener("click", this.handleClick);
   },
 
   animate() {
@@ -117,10 +132,28 @@ var Globe = React.createClass({
     this.renderer.setSize(this.width, this.height);
   },
 
+  handleClick(e) {
+    this.mouseVector.x = 2 * (e.clientX / this.width) - 1;
+    this.mouseVector.y = 1 - 2 * (e.clientY / this.height);
+
+    this.raycaster.setFromCamera(this.mouseVector, this.camera);
+
+    for (var i = 0; i < this.countries.length; i++) {
+      var intersects = this.raycaster.intersectObjects(this.countries[i].children);
+
+      for (var j = 0; j < intersects.length; j++) {
+        console.log("selected", this.countries[i].name);
+        return;
+      }
+    }
+  },
+
   componentDidMount() {
     this.init();
     this.animate();
     window.addEventListener("resize", this.handleResize);
+
+    ReactDOM.render(<Instructions onClose={this.onInstructionsClosed}/>, document.getElementById("instructions"));
   },
 
   componentWillUnmount() {
@@ -129,8 +162,8 @@ var Globe = React.createClass({
 
   render() {
     return <div>
-            <Instructions />
-            <div id="scene"></div>
+             <div id="instructions"></div>
+             <div id="scene"></div>
            </div>
   }
 });
