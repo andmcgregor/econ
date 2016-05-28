@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import THREE from "three";
+import "./TrackballControls";
 
 import Instructions from "./Instructions";
 
@@ -43,8 +45,18 @@ var Globe = React.createClass({
     this.width = document.getElementById("globe").offsetWidth,
     this.height = document.getElementById("globe").offsetHeight;
 
-    this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 1, 10000);
+    this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
     this.camera.position.z = 2;
+
+    this.controls = new THREE.TrackballControls(this.camera);
+
+    this.controls.rotateSpeed = 2.0;
+    this.controls.zoomSpeed = 0.4;
+    this.controls.noPan = true;
+    this.controls.minDistance = 1.5;
+    this.controls.maxDistance = 100.0;
+
+    this.controls.addEventListener("change", this.render);
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(this.width, this.height);
@@ -81,8 +93,6 @@ var Globe = React.createClass({
     this.scene.add(mesh);
 
     this.countries = [];
-    this.initCountries();
-
     document.getElementById("scene").appendChild(this.renderer.domElement);
   },
 
@@ -113,11 +123,15 @@ var Globe = React.createClass({
   },
 
   onInstructionsClosed() {
-    window.addEventListener("click", this.handleClick);
+    var _this = this;
+    setTimeout(function() {
+      window.addEventListener("click", _this.handleClick);
+    }, 10);
   },
 
   animate() {
     requestAnimationFrame(this.animate);
+    this.controls.update();
     this.scene.rotation.z += 0.005;
     this.renderer.render(this.scene, this.camera);
   },
@@ -142,7 +156,8 @@ var Globe = React.createClass({
       var intersects = this.raycaster.intersectObjects(this.countries[i].children);
 
       for (var j = 0; j < intersects.length; j++) {
-        console.log("selected", this.countries[i].name);
+        this.props.onSelectCountry({ name: this.countries[i].name,
+                                     code: this.countries[i].code });
         return;
       }
     }
@@ -158,6 +173,13 @@ var Globe = React.createClass({
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.countries.length == 0) {
+      this.props = nextProps;
+      this.initCountries();
+    }
   },
 
   render() {

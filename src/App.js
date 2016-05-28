@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 
 import Loading from "./Loading";
 import Globe from "./Globe";
+
+import CountryData from "./CountryData";
+
 import Sidebar from "./Sidebar";
 
 var App = React.createClass({
@@ -29,10 +32,6 @@ var App = React.createClass({
       this.setState({ countries: json });
       if (this.state.countries.length > 0 && this.state.products.length > 0)
         this.onLoaded();
-
-      ReactDOM.render(<Globe countries={this.state.countries}
-                             selectedCountry={this.state.selectedCountry} />,
-                      document.getElementById("globe"));
     }.bind(this));
 
     fetch(this.props.API_ENTRY + "products").then(function(response) {
@@ -45,15 +44,16 @@ var App = React.createClass({
   },
 
   fetchTradeData() {
+    /*
     if (this.state.selectedCountry != undefined &&
         this.state.selectedProduct != undefined) {
-      console.log('doing request');
-      fetch(this.props.API_ENTRY + "trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
+      fetch(this.props.API_ENTRY + "trades?country_code="+this.state.selectedCountry.code+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
         return response.json();
       }).then(function(json) {
         this.setState({ tradeData: json });
       }.bind(this));
     }
+    */
   },
 
   componentDidMount() {
@@ -67,7 +67,6 @@ var App = React.createClass({
 
   onSelectCountry(country) {
     this.setState({ selectedCountry: country });
-    this.fetchTradeData();
   },
 
   onSelectProduct(product) {
@@ -80,7 +79,15 @@ var App = React.createClass({
              <div id="loading"></div>
 
              <div className="app">
-               <div id="globe"></div>
+               <CountryData country={this.state.selectedCountry}
+                            products={this.state.products}
+                            API_ENTRY={this.props.API_ENTRY} />
+
+               <div id="globe">
+                 <Globe countries={this.state.countries}
+                        selectedCountry={this.state.selectedCountry}
+                        onSelectCountry={this.onSelectCountry} />
+               </div>
              </div>
            </div>
   }
@@ -91,7 +98,6 @@ export default App
                /*
                <Sidebar countries={this.state.countries}
                         selectedCountry={this.state.selectedCountry}
-                        onSelectCountry={this.onSelectCountry}
                         products={this.state.products}
                         selectedProduct={this.state.selectedProduct}
                         onSelectProduct={this.onSelectProduct}

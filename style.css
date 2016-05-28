@@ -7,16 +7,18 @@ html, body {
   overflow-y: hidden;
 }
 
-h1, h2, h3 {
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-  color: #95a5a6;
-  text-align: center;
+h1, h2 {
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
 }
 
-h3 {
-  font-size: 16px;
-  font-weight: 300;
+h2 {
+  text-align: left;
 }
 
 .app {
@@ -57,17 +59,31 @@ h3 {
   text-decoration: underline;
 }
 
-/* sidebar */
+/* sidebars */
 
 .sidebar {
+  position: absolute;
   width: 25%;
   min-width: 300px;
   padding: 10px;
   height: 100%;
-  position: absolute;
   right: 0;
-  background: #2c3e50;
+  background: rgba(0,0,0,0.75);
+  color: #ffffff;
+  text-align: center;
   z-index: 1;
+}
+
+.hide {
+  display: none;
+}
+
+.sidebar.left {
+  left: 0;
+}
+
+.sidebar.right {
+  right: 0;
 }
 
 select, select:focus {
