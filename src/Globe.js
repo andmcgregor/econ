@@ -1,9 +1,11 @@
 import React from "react";
 import THREE from "three";
 
-// TODO shift to separate file
-function Vertices(data) {
+import Instructions from "./Instructions";
 
+// TODO shift to separate file
+
+function Vertices(data) {
   THREE.Geometry.call(this);
 
   var uvData = [];
@@ -36,15 +38,17 @@ function Vertices(data) {
 Vertices.prototype = Object.create(THREE.Geometry.prototype);
 
 var Globe = React.createClass({
+
   init() {
-    this.width = document.getElementById("scene").offsetWidth,
-    this.height = document.getElementById("scene").offsetHeight;
+    this.width = document.getElementById("globe").offsetWidth,
+    this.height = document.getElementById("globe").offsetHeight;
 
     this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 1, 10000);
     this.camera.position.z = 2;
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(this.width, this.height);
+    this.renderer.setClearColor(0x0e141a, 1);
 
     this.scene = new THREE.Scene();
     this.scene.rotation.x = Math.PI / 180.0 * 270.0;
@@ -67,8 +71,9 @@ var Globe = React.createClass({
       this.scene.add(lights[i]);
 
     // add ocean to scene
+
     var geometry = new THREE.SphereGeometry(0.99, 56, 56);
-    var material = new THREE.MeshBasicMaterial({ color: 0x2c3e50 });
+    var material = new THREE.MeshBasicMaterial({ color: 0x2980b9 });
     var mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
 
@@ -82,11 +87,13 @@ var Globe = React.createClass({
       var data = JSON.parse(this.props.countries[i].boundary);
       if (!data) continue;
 
+      var color = Math.random() * 0xFFFFFF << 0;
+
       var geometry = new Vertices(data);
       var material = new THREE.MeshPhongMaterial({
-        color: 0x7f8c8d,
-        specular: 0x95a5a6,
-        shininess: 20,
+        color: color,
+        specular: 0xFFFFFF,
+        shininess: 1,
         shading: THREE.FlatShading
       });
 
@@ -100,13 +107,31 @@ var Globe = React.createClass({
     this.renderer.render(this.scene, this.camera);
   },
 
+  handleResize(e) {
+    this.width = document.getElementById("globe").offsetWidth,
+    this.height = document.getElementById("globe").offsetHeight;
+
+    this.camera.aspect = this.width / this.height;
+    this.camera.updateProjectionMatrix();
+
+    this.renderer.setSize(this.width, this.height);
+  },
+
   componentDidMount() {
     this.init();
     this.animate();
+    window.addEventListener("resize", this.handleResize);
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   },
 
   render() {
-    return <div className="globe" id="scene"></div>
+    return <div>
+            <Instructions />
+            <div id="scene"></div>
+           </div>
   }
 });
 

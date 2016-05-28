@@ -16,8 +16,14 @@ var App = React.createClass({
     }
   },
 
+  getDefaultProps() {
+    return {
+      API_ENTRY: "http://www.andrewmcgregor.me/econ/api/"
+    }
+  },
+
   fetchInitialData() {
-    fetch("/econ/api/countries").then(function(response) {
+    fetch(this.props.API_ENTRY + "countries").then(function(response) {
       return response.json();
     }).then(function(json) {
       this.setState({ countries: json });
@@ -27,11 +33,9 @@ var App = React.createClass({
       ReactDOM.render(<Globe countries={this.state.countries}
                              selectedCountry={this.state.selectedCountry} />,
                       document.getElementById("globe"));
-
-
     }.bind(this));
 
-    fetch("/econ/api/products").then(function(response) {
+    fetch(this.props.API_ENTRY + "products").then(function(response) {
       return response.json();
     }).then(function(json) {
       this.setState({ products: json });
@@ -44,7 +48,7 @@ var App = React.createClass({
     if (this.state.selectedCountry != undefined &&
         this.state.selectedProduct != undefined) {
       console.log('doing request');
-      fetch("/econ/api/trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
+      fetch(this.props.API_ENTRY + "trades?country_code="+this.state.selectedCountry+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
         return response.json();
       }).then(function(json) {
         this.setState({ tradeData: json });
@@ -77,7 +81,14 @@ var App = React.createClass({
 
              <div className="app">
                <div id="globe"></div>
+             </div>
+           </div>
+  }
+});
 
+export default App
+
+               /*
                <Sidebar countries={this.state.countries}
                         selectedCountry={this.state.selectedCountry}
                         onSelectCountry={this.onSelectCountry}
@@ -85,10 +96,5 @@ var App = React.createClass({
                         selectedProduct={this.state.selectedProduct}
                         onSelectProduct={this.onSelectProduct}
                         tradeData={this.state.tradeData} />
-             </div>
-           </div>
-  }
-});
-
-export default App
+                */
 
