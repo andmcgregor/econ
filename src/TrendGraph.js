@@ -3,7 +3,7 @@ import d3 from "d3";
 
 var TrendGraph = React.createClass({
   init() {
-    console.log('TrendGraph init');
+    document.getElementById(this.props.id).innerHTML = "";
 
     if (!this.props.data)
       return;
@@ -85,7 +85,6 @@ var TrendGraph = React.createClass({
   },
 
   componentDidUpdate() {
-    document.getElementById(this.props.id).innerHTML = "";
     this.init();
   },
 

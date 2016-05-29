@@ -9,13 +9,13 @@ var position = function() {
 
 var ProductTreemap = React.createClass({
   update() {
-    console.log('ProductTreemap update');
+    this.div = d3.select("#" + this.props.id).html("");
 
     if (!this.props.data)
       return;
 
     var data = {
-      product: 0,
+      name: 0,
       children: this.props.data
     };
 
@@ -37,7 +37,7 @@ var ProductTreemap = React.createClass({
       .enter().append("div")
         .attr("class", "node")
         .call(position)
-        .text(function(d) { return d.children ? null : d.product; });
+        .text(function(d) { return d.children ? null : d.name; });
 
     d3.selectAll("input").on("change", function change() {
       var value = this.value === "count"
@@ -69,7 +69,6 @@ var ProductTreemap = React.createClass({
   },
 
   componentDidUpdate() {
-    this.div = d3.select("#" + this.props.id).html("");
     this.update();
   },
 
