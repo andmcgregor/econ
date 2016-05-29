@@ -43,19 +43,6 @@ var App = React.createClass({
     }.bind(this));
   },
 
-  fetchTradeData() {
-    /*
-    if (this.state.selectedCountry != undefined &&
-        this.state.selectedProduct != undefined) {
-      fetch(this.props.API_ENTRY + "trades?country_code="+this.state.selectedCountry.code+"&"+"product_code="+this.state.selectedProduct).then(function(response) {
-        return response.json();
-      }).then(function(json) {
-        this.setState({ tradeData: json });
-      }.bind(this));
-    }
-    */
-  },
-
   componentDidMount() {
     ReactDOM.render(<Loading />, document.getElementById("loading"));
     this.fetchInitialData();
@@ -71,7 +58,6 @@ var App = React.createClass({
 
   onSelectProduct(product) {
     this.setState({ selectedProduct: product });
-    this.fetchTradeData();
   },
 
   render() {

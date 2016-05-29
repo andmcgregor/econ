@@ -9,12 +9,15 @@ var position = function() {
 
 var ProductTreemap = React.createClass({
   update() {
+    console.log('ProductTreemap update');
+
+    if (!this.props.data)
+      return;
+
     var data = {
       product: 0,
       children: this.props.data
     };
-
-    this.div = d3.select("#" + this.props.id).html("");
 
     this.width = document.getElementById(this.props.id).clientWidth,
     this.height = this.width * 0.75;
@@ -48,31 +51,39 @@ var ProductTreemap = React.createClass({
     });
   },
 
+  handleResize() {
+    if (this.width !== document.getElementById(this.props.id).clientWidth)
+      this.update();
+  },
+
   componentDidMount() {
-    window.addEventListener("resize", this.update);
+    window.addEventListener("resize", this.handleResize);
   },
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.update);
+    window.removeEventListener("resize", this.handleResize);
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.data != this.props.data;
+    return nextProps.data !== this.props.data;
   },
 
   componentDidUpdate() {
+    this.div = d3.select("#" + this.props.id).html("");
     this.update();
   },
 
   render() {
     var message;
 
-    if (this.props.data.length == 0)
+    if (!this.props.data)
+      message = <p>Loading...</p>
+    else if (this.props.data.length == 0)
       message = <p>No data.</p>
 
     return <div>
              {message}
-             <div class="graph" id={this.props.id}></div>
+             <div className="graph" id={this.props.id}></div>
            </div>
   }
 });
