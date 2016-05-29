@@ -102,7 +102,9 @@ var TrendGraph = React.createClass({
   },
 
   render() {
-    return <div id={this.props.id}></div>
+    return <div>
+             <div id={this.props.id}></div>
+           </div>
   }
 });
 

@@ -8,26 +8,26 @@ var position = function() {
 };
 
 var ProductTreemap = React.createClass({
-  init() {
-    this.width = document.getElementById(this.props.id).clientWidth,
-    this.height = this.width * 0.75;
-
-    this.treemap = d3.layout.treemap()
-        .size([this.width, this.height])
-        .sticky(true)
-        .value(function(d) { return d.summed; });
-
-    this.div = d3.select("#" + this.props.id).append("div")
-        .style("position", "relative")
-        .style("width", this.width + "px")
-        .style("height", this.height + "px");
-  },
-
   update() {
     var data = {
       product: 0,
       children: this.props.data
     };
+
+    this.div = d3.select("#" + this.props.id).html("");
+
+    this.width = document.getElementById(this.props.id).clientWidth,
+    this.height = this.width * 0.75;
+
+    this.treemap = d3.layout.treemap()
+        .sticky(true)
+        .value(function(d) { return d.summed; })
+        .size([this.width, this.height]);
+
+    this.div = d3.select("#" + this.props.id).append("div")
+        .style("position", "relative")
+        .style("width", this.width + "px")
+        .style("height", this.height + "px");
 
     var node = this.div.datum(data).selectAll(".node")
         .data(this.treemap.nodes)
@@ -48,24 +48,12 @@ var ProductTreemap = React.createClass({
     });
   },
 
-  handleResize() {
-    this.width = document.getElementById(this.props.id).clientWidth,
-    this.height = this.width * 0.75;
-
-    this.treemap
-        .size([this.width, this.height]);
-
-    this.div
-        .style("width", this.width + "px")
-        .style("height", this.height + "px");
-  },
-
   componentDidMount() {
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("resize", this.update);
   },
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("resize", this.update);
   },
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -73,7 +61,6 @@ var ProductTreemap = React.createClass({
   },
 
   componentDidUpdate() {
-    this.init();
     this.update();
   },
 

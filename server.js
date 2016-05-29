@@ -23,8 +23,22 @@ app.get("/econ/api/countries", function(req, res) {
   });
 });
 
+app.get("/econ/api/countries/:code/imports", function(req, res) {
+  client.query("SELECT year, count(*), sum(export_val) AS summed FROM trades WHERE destination=$1 GROUP BY year ORDER BY year ASC", [req.params.code], function(err, result) {
+    if (err) return console.error("error:", err);
+    res.json(result.rows);
+  });
+});
+
 app.get("/econ/api/countries/:code/imports/:year", function(req, res) {
   client.query("SELECT product, count(*), sum(export_val) AS summed FROM trades WHERE destination=$1 AND year=$2 GROUP BY product ORDER BY summed DESC", [req.params.code, req.params.year], function(err, result) {
+    if (err) return console.error("error:", err);
+    res.json(result.rows);
+  });
+});
+
+app.get("/econ/api/countries/:code/exports", function(req, res) {
+  client.query("SELECT year, count(*), sum(export_val) AS summed FROM trades WHERE origin=$1 GROUP BY year ORDER BY year ASC", [req.params.code], function(err, result) {
     if (err) return console.error("error:", err);
     res.json(result.rows);
   });
