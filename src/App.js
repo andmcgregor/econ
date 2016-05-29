@@ -3,10 +3,7 @@ import ReactDOM from "react-dom";
 
 import Loading from "./Loading";
 import Globe from "./Globe";
-
 import CountryData from "./CountryData";
-
-import Sidebar from "./Sidebar";
 
 var App = React.createClass({
   getInitialState() {
