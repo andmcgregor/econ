@@ -9,11 +9,11 @@ var Instructions = React.createClass({
 
   render() {
     return <div className="instructions">
-             <p>Vizualize $17 trillion worth of international trade, classified with the Harmonized System.</p>
+             <p>Visualize $17 trillion worth of international trade.</p>
 
-             <p>Data from the United Nations Comtrade database.</p>
+             <p>Goods classified using the <a href="https://en.wikipedia.org/wiki/Harmonized_System" target="_blank">Harmonized System (HS)</a>.</p>
 
-             <p>Select a country to begin...</p>
+             <p>Data from the <a href="http://atlas.media.mit.edu/en/resources/data" target="_blank">Observatory of Economic Complexity</a>, originally from the <a href="http://comtrade.un.org/" target="_blank">United Nations Comtrade database</a>.</p>
 
              <p onClick={this.handleClose} className="action">start</p>
            </div>

@@ -1,5 +1,6 @@
 import React from "react";
 
+import TrendGraph from "./TrendGraph";
 import ProductTreemap from "./ProductTreemap";
 
 var CountryData = React.createClass({
@@ -16,7 +17,6 @@ var CountryData = React.createClass({
   },
 
   componentDidUpdate() {
-    console.log("componentDidUpdate");
     this.fetchImportExportData();
   },
 
@@ -38,11 +38,18 @@ var CountryData = React.createClass({
     return <div className={"sidebar left " + (this.props.country ? "" : "hide")}>
              <h1>{this.props.country ? this.props.country.name : ""}</h1>
 
+             <h2>Trend</h2>
+             <TrendGraph id="countryTrend"
+                         exportData={this.state.exportData}
+                         importData={this.state.importData} />
+
              <h2>Exports</h2>
-             <ProductTreemap exportData={this.state.exportData} />
+             <ProductTreemap id="exportsTreemap"
+                             data={this.state.exportData} />
 
              <h2>Imports</h2>
-             <ProductTreemap importData={this.state.importData} />
+             <ProductTreemap id="importsTreemap"
+                             data={this.state.importData} />
            </div>
   }
 });

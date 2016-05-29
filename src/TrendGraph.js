@@ -6,7 +6,7 @@ var TrendGraph = React.createClass({
     var _this = this;
 
     this.margin = { top: 10, right: 15, bottom: 25, left: 30 },
-    this.width = document.getElementById(this.props.valueType).offsetWidth - this.margin.left - this.margin.right,
+    this.width = document.getElementById(this.props.id).offsetWidth - this.margin.left - this.margin.right,
     this.height = this.width * 0.6;
 
     this.x = d3.scale.linear()
@@ -19,7 +19,7 @@ var TrendGraph = React.createClass({
         .x(function(d) { return _this.x(d.year); })
         .y(function(d) { return _this.y(d.value); });
 
-    this.svg = d3.select(document.getElementById(this.props.valueType)).append("svg")
+    this.svg = d3.select(document.getElementById(this.props.id)).append("svg")
         .attr("width", this.width + this.margin.left + this.margin.right)
         .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
@@ -41,6 +41,7 @@ var TrendGraph = React.createClass({
   updateGraph() {
     var data = [];
 
+    /*
     for (var i = 0; i < this.props.tradeData.length; i++) {
       if ((this.props.valueType == "import_val" && this.props.tradeData[i].origin == this.props.selectedCountry) ||
           (this.props.valueType == "export_val" && this.props.tradeData[i].origin == this.props.selectedCountry)) {
@@ -58,10 +59,9 @@ var TrendGraph = React.createClass({
           data.push({ year: this.props.tradeData[i].year, value: this.props.tradeData[i][this.props.valueType] });
       }
     }
+    */
 
     data.sort(function(a, b) { return a.year < b.year ? -1 : 1; });
-
-    console.log(JSON.stringify(data));
 
     this.svg.selectAll("path").remove();
     this.svg.selectAll("g").remove();
@@ -89,10 +89,10 @@ var TrendGraph = React.createClass({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.tradeData !== this.props.tradeData;
+    return nextProps.data !== this.props.data;
   },
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     this.updateGraph();
   },
 
@@ -102,7 +102,7 @@ var TrendGraph = React.createClass({
   },
 
   render() {
-    return <div id={this.props.valueType}></div>
+    return <div id={this.props.id}></div>
   }
 });
 

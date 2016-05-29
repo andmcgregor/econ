@@ -1,3 +1,239 @@
+CREATE TABLE countries (long_code char(5) NOT NULL UNIQUE, short_code char(3) NOT NULL UNIQUE, name text NOT NULL);
+CREATE TABLE products (long_code NOT NULL UNIQUE, short_code NOT NULL UNIQUE, name text NOT NULL);
+
+CREATE TABLE trades (year int, origin char(3), destination char(3), product int, export_val double precision, import_val double precision);
+
+CREATE TABLE trades_y92 (
+  CHECK (year = 1992)
+) INHERITS (trades);
+CREATE INDEX trades_y92_origin_idx on trades_y92(origin);
+CREATE INDEX trades_y92_destination_idx on trades_y92(destination);
+CREATE INDEX trades_y92_product_idx on trades_y92(product);
+
+CREATE TABLE trades_y93 (
+  CHECK (year = 1993)
+) INHERITS (trades);
+CREATE INDEX trades_y93_origin_idx on trades_y93(origin);
+CREATE INDEX trades_y93_destination_idx on trades_y93(destination);
+CREATE INDEX trades_y93_product_idx on trades_y93(product);
+
+CREATE TABLE trades_y94 (
+  CHECK (year = 1994)
+) INHERITS (trades);
+CREATE INDEX trades_y94_origin_idx on trades_y94(origin);
+CREATE INDEX trades_y94_destination_idx on trades_y94(destination);
+CREATE INDEX trades_y94_product_idx on trades_y95(product);
+
+CREATE TABLE trades_y95 (
+  CHECK (year = 1995)
+) INHERITS (trades);
+CREATE INDEX trades_y95_origin_idx on trades_y95(origin);
+CREATE INDEX trades_y95_destination_idx on trades_y95(destination);
+CREATE INDEX trades_y95_product_idx on trades_y95(product);
+
+CREATE TABLE trades_y96 (
+  CHECK (year = 1996)
+) INHERITS (trades);
+CREATE INDEX trades_y96_origin_idx on trades_y96(origin);
+CREATE INDEX trades_y96_destination_idx on trades_y96(destination);
+CREATE INDEX trades_y96_product_idx on trades_y96(product);
+
+CREATE TABLE trades_y97 (
+  CHECK (year = 1997)
+) INHERITS (trades);
+CREATE INDEX trades_y97_origin_idx on trades_y97(origin);
+CREATE INDEX trades_y97_destination_idx on trades_y97(destination);
+CREATE INDEX trades_y97_product_idx on trades_y97(product);
+
+CREATE TABLE trades_y98 (
+  CHECK (year = 1998)
+) INHERITS (trades);
+CREATE INDEX trades_y98_origin_idx on trades_y98(origin);
+CREATE INDEX trades_y98_destination_idx on trades_y98(destination);
+CREATE INDEX trades_y98_product_idx on trades_y98(product);
+
+CREATE TABLE trades_y99 (
+  CHECK (year = 1999)
+) INHERITS (trades);
+CREATE INDEX trades_y99_origin_idx on trades_y99(origin);
+CREATE INDEX trades_y99_destination_idx on trades_y99(destination);
+CREATE INDEX trades_y99_product_idx on trades_y99(product);
+
+CREATE TABLE trades_y00 (
+  CHECK (year = 2000)
+) INHERITS (trades);
+CREATE INDEX trades_y00_origin_idx on trades_y00(origin);
+CREATE INDEX trades_y00_destination_idx on trades_y00(destination);
+CREATE INDEX trades_y00_product_idx on trades_y00(product);
+
+CREATE TABLE trades_y01 (
+  CHECK (year = 2001)
+) INHERITS (trades);
+CREATE INDEX trades_y01_origin_idx on trades_y01(origin);
+CREATE INDEX trades_y01_destination_idx on trades_y01(destination);
+CREATE INDEX trades_y01_product_idx on trades_y01(product);
+
+CREATE TABLE trades_y02 (
+  CHECK (year = 2002)
+) INHERITS (trades);
+CREATE INDEX trades_y02_origin_idx on trades_y02(origin);
+CREATE INDEX trades_y02_destination_idx on trades_y02(destination);
+CREATE INDEX trades_y02_product_idx on trades_y02(product);
+
+CREATE TABLE trades_y03 (
+  CHECK (year = 2003)
+) INHERITS (trades);
+CREATE INDEX trades_y03_origin_idx on trades_y03(origin);
+CREATE INDEX trades_y03_destination_idx on trades_y03(destination);
+CREATE INDEX trades_y03_product_idx on trades_y03(product);
+
+CREATE TABLE trades_y04 (
+  CHECK (year = 2004)
+) INHERITS (trades);
+CREATE INDEX trades_y04_origin_idx on trades_y04(origin);
+CREATE INDEX trades_y04_destination_idx on trades_y04(destination);
+CREATE INDEX trades_y04_product_idx on trades_y04(product);
+
+CREATE TABLE trades_y05 (
+  CHECK (year = 2005)
+) INHERITS (trades);
+CREATE INDEX trades_y05_origin_idx on trades_y05(origin);
+CREATE INDEX trades_y05_destination_idx on trades_y05(destination);
+CREATE INDEX trades_y05_product_idx on trades_y05(product);
+
+CREATE TABLE trades_y06 (
+  CHECK (year = 2006)
+) INHERITS (trades);
+CREATE INDEX trades_y06_origin_idx on trades_y06(origin);
+CREATE INDEX trades_y06_destination_idx on trades_y06(destination);
+CREATE INDEX trades_y06_product_idx on trades_y06(product);
+
+CREATE TABLE trades_y07 (
+  CHECK (year = 2007)
+) INHERITS (trades);
+CREATE INDEX trades_y07_origin_idx on trades_y07(origin);
+CREATE INDEX trades_y07_destination_idx on trades_y07(destination);
+CREATE INDEX trades_y07_product_idx on trades_y07(product);
+
+CREATE TABLE trades_y08 (
+  CHECK (year = 2008)
+) INHERITS (trades);
+CREATE INDEX trades_y08_origin_idx on trades_y08(origin);
+CREATE INDEX trades_y08_destination_idx on trades_y08(destination);
+CREATE INDEX trades_y08_product_idx on trades_y08(product);
+
+CREATE TABLE trades_y09 (
+  CHECK (year = 2009)
+) INHERITS (trades);
+CREATE INDEX trades_y09_origin_idx on trades_y09(origin);
+CREATE INDEX trades_y09_destination_idx on trades_y09(destination);
+CREATE INDEX trades_y09_product_idx on trades_y09(product);
+
+CREATE TABLE trades_y10 (
+  CHECK (year = 2010)
+) INHERITS (trades);
+CREATE INDEX trades_y10_origin_idx on trades_y10(origin);
+CREATE INDEX trades_y10_destination_idx on trades_y10(destination);
+CREATE INDEX trades_y10_product_idx on trades_y10(product);
+
+CREATE TABLE trades_y11 (
+  CHECK (year = 2011)
+) INHERITS (trades);
+CREATE INDEX trades_y11_origin_idx on trades_y11(origin);
+CREATE INDEX trades_y11_destination_idx on trades_y11(destination);
+CREATE INDEX trades_y11_product_idx on trades_y11(product);
+
+CREATE TABLE trades_y12 (
+  CHECK (year = 2012)
+) INHERITS (trades);
+CREATE INDEX trades_y12_origin_idx on trades_y12(origin);
+CREATE INDEX trades_y12_destination_idx on trades_y12(destination);
+CREATE INDEX trades_y12_product_idx on trades_y12(product);
+
+CREATE TABLE trades_y13 (
+  CHECK (year = 2013)
+) INHERITS (trades);
+CREATE INDEX trades_y13_origin_idx on trades_y13(origin);
+CREATE INDEX trades_y13_destination_idx on trades_y13(destination);
+CREATE INDEX trades_y13_product_idx on trades_y13(product);
+
+CREATE TABLE trades_y14 (
+  CHECK (year = 2014)
+) INHERITS (trades);
+CREATE INDEX trades_y14_origin_idx on trades_y14(origin);
+CREATE INDEX trades_y14_destination_idx on trades_y14(destination);
+CREATE INDEX trades_y14_product_idx on trades_y14(product);
+
+CREATE TABLE trades_y15 (
+  CHECK (year = 2015)
+) INHERITS (trades);
+CREATE INDEX trades_y15_origin_idx on trades_y15(origin);
+CREATE INDEX trades_y15_destination_idx on trades_y15(destination);
+CREATE INDEX trades_y15_product_idx on trades_y15(product);
+
+CREATE OR REPLACE FUNCTION trade_insert_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF ( NEW.year = 1992 ) THEN
+    INSERT INTO trades_y92 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1993 ) THEN
+    INSERT INTO trades_y93 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1994 ) THEN
+    INSERT INTO trades_y94 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1995 ) THEN
+    INSERT INTO trades_y95 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1996 ) THEN
+    INSERT INTO trades_y96 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1997 ) THEN
+    INSERT INTO trades_y97 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1998 ) THEN
+    INSERT INTO trades_y98 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 1999 ) THEN
+    INSERT INTO trades_y99 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2000 ) THEN
+    INSERT INTO trades_y00 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2001 ) THEN
+    INSERT INTO trades_y01 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2002 ) THEN
+    INSERT INTO trades_y02 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2003 ) THEN
+    INSERT INTO trades_y03 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2004 ) THEN
+    INSERT INTO trades_y04 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2005 ) THEN
+    INSERT INTO trades_y05 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2006 ) THEN
+    INSERT INTO trades_y06 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2007 ) THEN
+    INSERT INTO trades_y07 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2008 ) THEN
+    INSERT INTO trades_y08 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2009 ) THEN
+    INSERT INTO trades_y09 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2010 ) THEN
+    INSERT INTO trades_y10 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2011 ) THEN
+    INSERT INTO trades_y11 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2012 ) THEN
+    INSERT INTO trades_y12 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2013 ) THEN
+    INSERT INTO trades_y13 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2014 ) THEN
+    INSERT INTO trades_y14 VALUES (NEW.*);
+  ELSEIF ( NEW.year = 2015 ) THEN
+    INSERT INTO trades_y15 VALUES (NEW.*);
+  ELSE
+    RAISE EXCEPTION 'Year out of range';
+  END IF;
+  RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_trade_trigger
+  BEFORE INSERT ON trades
+  FOR EACH ROW EXECUTE PROCEDURE trade_insert_trigger();
+
 sed -i 's/\"//g' country_names.tsv
 sed -i 's/\"//g' products_hs_07.tsv
 sed -i 's/NULL/0/g' year_origin_destination_hs07_4.tsv
@@ -5,19 +241,9 @@ sed -i 's/NULL/0/g' year_origin_destination_hs02_4.tsv
 sed -i 's/NULL/0/g' year_origin_destination_hs96_4.tsv
 sed -i 's/NULL/0/g' year_origin_destination_hs92_4.tsv
 
-CREATE TABLE countries (long_code char(5) NOT NULL UNIQUE, short_code char(3) NOT NULL UNIQUE, name text NOT NULL);
 \COPY countries FROM /home/andrew/Downloads/country_names.tsv
-
-CREATE TABLE products (long_code int NOT NULL UNIQUE, short_code int NOT NULL UNIQUE, name text NOT NULL);
 \COPY products FROM /home/andrew/Downloads/products_hs_07.tsv
-
-CREATE TABLE trades (year int, origin char(3), destination char(3), product int, export_val double precision, import_val double precision);
-CREATE INDEX trades_origin_idx on trades(origin);
-CREATE INDEX trades_destination_idx on trades(destination);
-CREATE INDEX trades_product_idx on trades(product);
-ANALYZE trades;
 \COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs07_4.tsv;
 \COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs02_4.tsv;
 \COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs96_4.tsv;
 \COPY trades FROM /home/andrew/Downloads/year_origin_destination_hs92_4.tsv;
-

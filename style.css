@@ -21,6 +21,10 @@ h2 {
   text-align: left;
 }
 
+a {
+  color: #ffffff;
+}
+
 .app {
   z-index: 0;
 }
@@ -57,6 +61,7 @@ h2 {
 
 .action {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 /* sidebars */
@@ -103,6 +108,14 @@ text {
   fill: #7f8c8d;
 }
 
+/* graphs */
+
+.graph {
+  width: 100%;
+}
+
+/* line graph */
+
 .line {
   fill: none;
   stroke: #ecf0f1;
@@ -119,5 +132,15 @@ text {
   stroke: #34495e;
   shape-rendering: crispEdges;
   stroke-dasharray: 2,2;
+}
+
+/* treemap */
+
+.node {
+  border: solid 1px white;
+  font-size: 10px;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
 }
 
