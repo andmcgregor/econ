@@ -32,7 +32,7 @@ app.get("/econ/api/countries/:code/imports", function(req, res) {
 
 app.get("/econ/api/countries/:code/imports/:year", function(req, res) {
   client.query(
-      "SELECT sum(trade.export_val) AS summed, product.short_code, product.name FROM trades AS trade INNER JOIN products AS product ON trade.product = product.short_code WHERE trade.destination=$1' AND trade.year=$2 GROUP BY product.name, product.short_code ORDER BY summed DESC", [req.params.code, req.params.year], function(err, result) {
+      "SELECT sum(trade.export_val) AS summed, product.short_code, product.name FROM trades AS trade INNER JOIN products AS product ON trade.product = product.short_code WHERE trade.destination=$1 AND trade.year=$2 GROUP BY product.name, product.short_code ORDER BY summed DESC", [req.params.code, req.params.year], function(err, result) {
     if (err) return console.error("error:", err);
     res.json(result.rows);
   });
@@ -46,7 +46,7 @@ app.get("/econ/api/countries/:code/exports", function(req, res) {
 });
 
 app.get("/econ/api/countries/:code/exports/:year", function(req, res) {
-  client.query("SELECT sum(trade.export_val) AS summed, product.short_code, product.name FROM trades AS trade INNER JOIN products AS product ON trade.product = product.short_code WHERE trade.origin=$1' AND trade.year=$2 GROUP BY product.name, product.short_code ORDER BY summed DESC", [req.params.code, req.params.year], function(err, result) {
+  client.query("SELECT sum(trade.export_val) AS summed, product.short_code, product.name FROM trades AS trade INNER JOIN products AS product ON trade.product = product.short_code WHERE trade.origin=$1 AND trade.year=$2 GROUP BY product.name, product.short_code ORDER BY summed DESC", [req.params.code, req.params.year], function(err, result) {
     if (err) return console.error("error:", err);
     res.json(result.rows);
   });
