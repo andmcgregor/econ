@@ -48,6 +48,8 @@ var Globe = React.createClass({
     this.camera = new THREE.PerspectiveCamera(75, this.width / this.height, 0.1, 1000);
     this.camera.position.z = 2;
 
+    this.rotation = 0.005;
+
     this.controls = new THREE.TrackballControls(this.camera);
 
     this.controls.rotateSpeed = 2.0;
@@ -127,12 +129,14 @@ var Globe = React.createClass({
     setTimeout(function() {
       window.addEventListener("click", _this.handleClick);
     }, 10);
+
+    this.rotation = 0.0;
   },
 
   animate() {
     requestAnimationFrame(this.animate);
     this.controls.update();
-    this.scene.rotation.z += 0.005;
+    this.scene.rotation.z += this.rotation;
     this.renderer.render(this.scene, this.camera);
   },
 
